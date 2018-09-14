@@ -31,8 +31,8 @@ class Page extends CI_Controller {
 			echo $cityJson[$i]["title"]."<br/>";
 			$weather = $this->weather_model->view_weather($cityJson[$i]["woeid"]);
 			$weatherJson = json_decode($weather, true);
-			//echo $weatherJson ["consolidated_weather"][0]["applicable_date"];
-			print_r($weatherJson);
+			echo $weatherJson ["consolidated_weather"][0]["applicable_date"];
+			//print_r($weatherJson);
 		}
 
 	}
