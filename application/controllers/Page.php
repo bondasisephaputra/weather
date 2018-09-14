@@ -17,6 +17,17 @@ class Page extends CI_Controller {
 			$data['keyword'] = $_GET['keyword'];
 			$data['listLocation'] = $this->weather_model->search($data['keyword']);
 			$data['listJson'] = json_decode($data['listLocation'], true); 
+			if(isset($_SESSION['search_count'])){	
+				if (!in_array($data['keyword'], $_SESSION['save_data']))
+				{
+				  	$_SESSION['save_data'][$_SESSION['search_count']] = $_GET['keyword'];
+				  	$_SESSION['search_count'] += 1;
+					
+				}
+			}else{
+				$_SESSION['search_count'] = 1;
+				$_SESSION['save_data'][0] = $_GET['keyword'];
+			}
 		}else{
 			$data['keyword'] ="";
 			$data['listLocation'] = "";
@@ -30,6 +41,38 @@ class Page extends CI_Controller {
 		$this->load->view('page/header', $data);
 		$this->load->view('page/search', $data);
 		$this->load->view('page/home', $data);
+		$this->load->view('page/footer', $data);
+
+
+	}
+
+	public function save()
+	{
+
+		if(isset($_GET['keyword'])){	
+			$data['keyword'] = $_GET['keyword'];
+		}else{
+			$data['keyword'] = "";
+		}
+		$data['search_count'] = 0;
+		if(isset($_SESSION['search_count'])){	
+			$data['search_count'] = $_SESSION['search_count'];
+		}
+
+		if($data['search_count']>0){
+			for($i=0;$i<$data['search_count'];$i++){
+				if(isset($_SESSION['save_data'])){
+					$data['save_data'][$i]=$_SESSION['save_data'][$i];
+				}
+			}
+
+		}		
+
+		$data['title'] = 'Save Data';
+						
+		$this->load->view('page/header', $data);
+		$this->load->view('page/search', $data);
+		$this->load->view('page/save', $data);
 		$this->load->view('page/footer', $data);
 
 
