@@ -14,9 +14,12 @@ class Page extends CI_Controller {
 	{
 
 
-		$this->load->view('page/header');
-		$this->load->view('page/home');
-		$this->load->view('page/footer');
+		$data['title'] = 'Home';
+						
+		$this->load->view('page/header', $data);
+		$this->load->view('page/home', $data);
+		$this->load->view('page/footer', $data);
+
 
 	}
 
