@@ -28,8 +28,35 @@
 		<!-- Custom CSS -->
 		<link href="<?php echo base_url("template/css/style.css"); ?>" rel="stylesheet">
 		<!-- Stylesheet for Color -->
-		<link href="<?php echo base_url("template/css/red.css"); ?>" rel="stylesheet">
+		<link href="<?php echo base_url("template/css/blue.css"); ?>" rel="stylesheet">
+
+	<style>
+	
+	body, html {
+	  height: 100%;
+	  margin: 0;
+	  min-width: 600px;
+	  
+	}
+
+	.bgimg-1 {
+	  background-image: url(<?php echo base_url("template/img/background.png"); ?>);
+	  height: 100%;
+	  position: relative;
+	  opacity: 1;
+	  background-position: center;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	}
+
+	.vcontainer {
+	    min-height: 10em;
+	    display: table-cell;
+	    vertical-align: middle;
+	}	
+	</style>
+
 
 	</head>
 	
-	<body>
+	<body class="bgimg-1">
