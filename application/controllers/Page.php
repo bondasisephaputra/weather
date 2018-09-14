@@ -20,13 +20,16 @@ class Page extends CI_Controller {
 			if(isset($_SESSION['search_count'])){	
 				if (!in_array($data['keyword'], $_SESSION['save_data']))
 				{
-				  	$_SESSION['save_data'][$_SESSION['search_count']] = $_GET['keyword'];
-				  	$_SESSION['search_count'] += 1;
-					
+					if(count($data['listJson']) > 0){
+				  		$_SESSION['save_data'][$_SESSION['search_count']] = $_GET['keyword'];
+				  		$_SESSION['search_count'] += 1;
+					}
 				}
 			}else{
-				$_SESSION['search_count'] = 1;
-				$_SESSION['save_data'][0] = $_GET['keyword'];
+				if(count($data['listJson']) > 0){
+					$_SESSION['search_count'] = 1;
+					$_SESSION['save_data'][0] = $_GET['keyword'];
+				}
 			}
 		}else{
 			$data['keyword'] ="";
@@ -40,7 +43,24 @@ class Page extends CI_Controller {
 						
 		$this->load->view('page/header', $data);
 		$this->load->view('page/search', $data);
-		$this->load->view('page/home', $data);
+		if(isset($_GET['keyword'])){
+			$this->load->view('page/home', $data);		
+		}else{
+			$city = "";
+			$query = @unserialize (file_get_contents('http://ip-api.com/php/'));
+			if ($query && $query['status'] == 'success') {
+				$city = $query['city'];
+				$data['listLocation'] = $this->weather_model->search($city);
+				$data['listJson'] = json_decode($data['listLocation'], true);
+				if(count($data['listJson']) > 0){
+					$woeid = $data['listJson'][0]["woeid"];
+					$data['weather'] = $this->weather_model->view_weather($woeid);
+					$data['weatherJson'] = json_decode($data['weather'], true);
+					$this->load->view('page/detail', $data);	
+				}
+			}
+			
+		}
 		$this->load->view('page/footer', $data);
 
 

@@ -60,3 +60,5 @@
 	</head>
 	
 	<body class="bgimg-1">
+
+		<center><a href="<?php echo base_url("page/index"); ?>"><h1 style="padding-top: 10px;color: #ffffff;">Weather Predictions</h1></a></center>
