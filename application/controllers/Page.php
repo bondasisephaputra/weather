@@ -34,6 +34,28 @@ class Page extends CI_Controller {
 
 	}
 
+	public function detail($woeid = '')
+	{
+
+		if($woeid){	
+
+			$data['weather'] = $this->weather_model->view_weather($woeid);
+			$data['weatherJson'] = json_decode($data['weather'], true);
+
+			$data['title'] = 'Weather Detail';
+							
+			$this->load->view('page/header', $data);
+			$this->load->view('page/detail', $data);
+			$this->load->view('page/footer', $data);
+
+		}else{
+			redirect(base_url('admin/login')); 
+		}
+
+
+	}
+
+
 
 	public function get_weather()
 	{
@@ -46,7 +68,7 @@ class Page extends CI_Controller {
 			echo $cityJson[$i]["title"]."<br/>";
 			$weather = $this->weather_model->view_weather($cityJson[$i]["woeid"]);
 			$weatherJson = json_decode($weather, true);
-			echo $weatherJson ["consolidated_weather"][0]["applicable_date"];
+			echo $weatherJson["consolidated_weather"][0]["applicable_date"];
 			//print_r($weatherJson);
 		}
 
