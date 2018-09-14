@@ -13,6 +13,17 @@ class Page extends CI_Controller {
 	public function index()
 	{
 
+		if(isset($_GET['keyword'])){	
+			$data['keyword'] = $_GET['keyword'];
+			$data['listLocation'] = $this->weather_model->search($data['keyword']);
+			$data['listJson'] = json_decode($data['listLocation'], true); 
+		}else{
+			$data['keyword'] ="";
+			$data['listLocation'] = "";
+			$data['listJson'] = "";
+		}
+
+		
 
 		$data['title'] = 'Home';
 						
@@ -22,6 +33,7 @@ class Page extends CI_Controller {
 
 
 	}
+
 
 	public function get_weather()
 	{
