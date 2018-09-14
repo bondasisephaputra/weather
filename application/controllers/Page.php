@@ -28,6 +28,7 @@ class Page extends CI_Controller {
 		$data['title'] = 'Home';
 						
 		$this->load->view('page/header', $data);
+		$this->load->view('page/search', $data);
 		$this->load->view('page/home', $data);
 		$this->load->view('page/footer', $data);
 
@@ -39,12 +40,19 @@ class Page extends CI_Controller {
 
 		if($woeid){	
 
+			if(isset($_GET['keyword'])){	
+				$data['keyword'] = $_GET['keyword'];
+			}else{
+				$data['keyword'] ="";
+			}			
+
 			$data['weather'] = $this->weather_model->view_weather($woeid);
 			$data['weatherJson'] = json_decode($data['weather'], true);
 
 			$data['title'] = 'Weather Detail';
 							
 			$this->load->view('page/header', $data);
+			$this->load->view('page/search', $data);
 			$this->load->view('page/detail', $data);
 			$this->load->view('page/footer', $data);
 

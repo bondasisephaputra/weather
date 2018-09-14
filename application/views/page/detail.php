@@ -1,3 +1,5 @@
+
+
 <?php $date = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"); ?>
 <div class="content features-two">
   <div class="container">
@@ -53,9 +55,9 @@
       $result = date('w', strtotime($weatherJson["consolidated_weather"][$i]["applicable_date"]));
     ?>
 
-          <div class="col-md-2 col-sm-2 col-xs-2" style="background-color: #000000;opacity: 0.6;<?php if($i>1){ ?>margin-left: 10px;<?php } ?>">
+          <div class="col-md-2 col-sm-2 col-xs-2" style="background-color: #000000;opacity: 0.6;<?php if($i>1){ ?>margin-left: 5px;<?php } ?>">
             <div>
-              <h4 class="title" style="color:#1C9ACA;font-weight:bold;"> <?= $date[$result] ?></h4>
+              <h4 class="title" style="color:#1C9ACA;font-weight:bold;font-size: 15px;"> <?= $date[$result] ?></h4>
               <div class="col-md-9 col-sm-9 col-xs-9">
                 <img src="https://www.metaweather.com/static/img/weather/<?= $weatherJson["consolidated_weather"][$i]["weather_state_abbr"] ?>.svg" alt="" style="margin-bottom: 10px;margin-top: 10px;" />
               </div>
@@ -68,6 +70,8 @@
 
     <?php } ?> 
 
+          <div class="col-md-1 col-sm-1 col-xs-1">
+          </div> 
 
     </div>
   </div>
